@@ -70,3 +70,13 @@ print(df.shape)
 
 print("\nSummary Statistics:")
 print(df.describe())
+
+# =========================
+# AVERAGE UNEMPLOYMENT RATE
+# =========================
+
+avg_unemployment = df['Estimated Unemployment Rate (%)'].mean()
+
+print(
+    f"\nAverage Unemployment Rate: {avg_unemployment:.2f}%"
+)
