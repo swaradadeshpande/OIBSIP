@@ -72,50 +72,60 @@ print("\nSummary Statistics:")
 print(df.describe())
 
 # =========================
-# AVERAGE UNEMPLOYMENT RATE
+# TOP 10 STATES BAR CHART
 # =========================
-
-avg_unemployment = df['Estimated Unemployment Rate (%)'].mean()
-
-print(
-    f"\nAverage Unemployment Rate: {avg_unemployment:.2f}%"
-)
-
-# =========================
-# TOP 10 STATES
-# =========================
-
-state_unemployment = (
-    df.groupby('Region')
-    ['Estimated Unemployment Rate (%)']
-    .mean()
-    .sort_values(ascending=False)
-)
-
-print("\nTop 10 States by Unemployment Rate:")
+state_unemployment = ( 
+    df.groupby('Region') ['Estimated Unemployment Rate (%)'] .mean() .sort_values(ascending=False) ) 
+print("\nTop 10 States by Unemployment Rate:") 
 print(state_unemployment.head(10))
+top10 = state_unemployment.head(10)
 
-# =========================
-# BAR CHART
-# =========================
+plt.figure(figsize=(14, 8))
 
-plt.figure(figsize=(12,6))
-
-state_unemployment.head(10).plot(
-    kind='bar',
-    color='crimson'
+ax = sns.barplot(
+    x=top10.values,
+    y=top10.index,
+    hue=top10.index,
+    palette="viridis",
+    legend=False
 )
+
+# Add value labels
+for i, value in enumerate(top10.values):
+    ax.text(
+        value + 0.2,
+        i,
+        f"{value:.2f}%",
+        va='center',
+        fontsize=11,
+        fontweight='bold'
+    )
 
 plt.title(
     "Top 10 States with Highest Unemployment Rate",
+    fontsize=20,
+    fontweight='bold'
+)
+
+plt.xlabel(
+    "Average Unemployment Rate (%)",
     fontsize=14
 )
 
-plt.xlabel("State")
-plt.ylabel("Unemployment Rate (%)")
+plt.ylabel(
+    "State",
+    fontsize=14
+)
 
-plt.xticks(rotation=45)
+plt.grid(axis='x', linestyle='--', alpha=0.4)
 
 plt.tight_layout()
+
+# Save graph
+plt.savefig(
+    "images/top10_unemployment_states.png",
+    dpi=300,
+    bbox_inches='tight'
+)
 
 plt.show()
