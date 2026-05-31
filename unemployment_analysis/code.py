@@ -16,7 +16,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 csv_path = os.path.join(
     BASE_DIR,
-    "..",
     "data",
     "Unemployment in India.csv"
 )
@@ -122,10 +121,5 @@ plt.grid(axis='x', linestyle='--', alpha=0.4)
 plt.tight_layout()
 
 # Save graph
-plt.savefig(
-    "images/top10_unemployment_states.png",
-    dpi=300,
-    bbox_inches='tight'
-)
-
+plt.savefig("images/top10_unemployment_states.png",dpi=300,bbox_inches='tight')
 plt.show()
