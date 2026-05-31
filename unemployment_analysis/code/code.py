@@ -80,3 +80,42 @@ avg_unemployment = df['Estimated Unemployment Rate (%)'].mean()
 print(
     f"\nAverage Unemployment Rate: {avg_unemployment:.2f}%"
 )
+
+# =========================
+# TOP 10 STATES
+# =========================
+
+state_unemployment = (
+    df.groupby('Region')
+    ['Estimated Unemployment Rate (%)']
+    .mean()
+    .sort_values(ascending=False)
+)
+
+print("\nTop 10 States by Unemployment Rate:")
+print(state_unemployment.head(10))
+
+# =========================
+# BAR CHART
+# =========================
+
+plt.figure(figsize=(12,6))
+
+state_unemployment.head(10).plot(
+    kind='bar',
+    color='crimson'
+)
+
+plt.title(
+    "Top 10 States with Highest Unemployment Rate",
+    fontsize=14
+)
+
+plt.xlabel("State")
+plt.ylabel("Unemployment Rate (%)")
+
+plt.xticks(rotation=45)
+
+plt.tight_layout()
+
+plt.show()
